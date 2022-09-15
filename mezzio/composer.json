@@ -57,11 +57,11 @@
         "mezzio/mezzio-swoole": "^4.5"
     },
     "require-dev": {
-        "filp/whoops": "^2.7.1",
         "laminas/laminas-development-mode": "^3.3.0",
-        "mezzio/mezzio-tooling": "^2.6",
+        "mezzio/mezzio-tooling": "^2.1",
         "phpunit/phpunit": "^9.5.11",
-        "roave/security-advisories": "dev-master"
+        "roave/security-advisories": "dev-master",
+        "filp/whoops": "^2.7.1"
     },
     "autoload": {
         "psr-4": {
