@@ -1,0 +1,64 @@
+version: "3.9"
+
+networks:
+  default:
+    external: true
+    name: infranet
+
+
+services:
+
+  swoole:
+    build:
+      context: .
+      dockerfile: ../dockerfiles/php-${PHP_VER}-sandbox.Dockerfile
+      args:
+        PROJECT_NAME: ${PROJECT_NAME}
+        ENV_NAME:     ${ENV_NAME}
+        PHP_VER:      ${PHP_VER}
+    image: ${ENV_NAME}-${PROJECT_NAME}-swoole${PHP_VER}-img:latest
+    container_name: ${ENV_NAME}-${PROJECT_NAME}-swoole${PHP_VER}
+    logging:
+      driver: "json-file"
+      options:
+          max-file: "5"
+          max-size: "10m"
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${CODE_DIR}:/app
+      - ${FS_DIR}:/appdata
+    environment:
+      TZ: ${TZ}
+  
+  nginx:
+    build:
+      context: ../..
+      dockerfile: stack/dockerfiles/nginx-sandbox.Dockerfile
+      args:
+        SERVER_NAME: ${SERVER_NAME}
+        UP_HOST: ${UP_HOST}
+        SERVER_ALIAS: ${SERVER_ALIAS}
+        PROJECT_NAME: ${PROJECT_NAME}
+        SRV_DOC_ROOT: ${SRV_DOC_ROOT}
+        ENV_NAME: ${ENV_NAME}
+        PHP_VER : ${PHP_VER}
+        ENABLED_MODULES: brotli
+    image: ${ENV_NAME}-${PROJECT_NAME}-nginx-img:latest
+    container_name: ${ENV_NAME}-${PROJECT_NAME}-nginx
+    logging:
+      driver: "json-file"
+      options:
+          max-file: "5"
+          max-size: "10m"
+    restart: unless-stopped
+    depends_on:
+      - swoole
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${CODE_DIR}:/app
+      - ${FS_DIR}:/appdata
+    environment:
+      TZ: ${TZ}
+    ports:
+      - ${HOST_PORT_HTTP}:${CNT_PORT_HTTP}
