@@ -71,12 +71,6 @@ ADD php${PHP_VER}/php_cli.ini /etc/php/${PHP_VER}/cli/php.ini
 #ADD php${PHP_VER}/zz-docker.conf /etc/php/${PHP_VER}/fpm/pool.d/zz-docker.conf
 
 
-#Any custom code 
-ADD php${PHP_VER}/custom.sh /tmp/custom.sh
-RUN chmod +x /tmp/custom.sh
-RUN /tmp/custom.sh
-
-
 #Configuration overrides:
 #RUN sed -i "s/ENV_PROJECT_NAME/${PROJECT_NAME}/" /etc/php/${PHP_VER}/fpm/php.ini
 RUN sed -i "s/ENV_PROJECT_NAME/${PROJECT_NAME}/" /etc/php/${PHP_VER}/cli/php.ini
