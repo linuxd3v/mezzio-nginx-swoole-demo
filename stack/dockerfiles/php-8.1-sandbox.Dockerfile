@@ -45,6 +45,7 @@ php \
 php${PHP_VER}-openswoole \
 #php${PHP_VER}-swoole \
 php-intl \
+#php-xdebug \
 php-bcmath \
 php-redis \
 php-curl \
@@ -63,16 +64,14 @@ rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/{man,doc}
 
 
 #PHP: configuring
-#RUN mv /etc/php/${PHP_VER}/fpm/php.ini /etc/php/${PHP_VER}/fpm/php.ini.bak
+#RUN mv /etc/php/${PHP_VER}/mods-available/xdebug.ini /etc/php/${PHP_VER}/mods-available/xdebug.ini.bak
 RUN mv /etc/php/${PHP_VER}/cli/php.ini /etc/php/${PHP_VER}/cli/php.ini.bak
 
-#ADD php${PHP_VER}/php.ini  /etc/php/${PHP_VER}/fpm/php.ini
+#ADD php${PHP_VER}/xdebug.ini  /etc/php/${PHP_VER}/mods-available/xdebug.ini
 ADD php${PHP_VER}/php_cli.ini /etc/php/${PHP_VER}/cli/php.ini
-#ADD php${PHP_VER}/zz-docker.conf /etc/php/${PHP_VER}/fpm/pool.d/zz-docker.conf
 
 
 #Configuration overrides:
-#RUN sed -i "s/ENV_PROJECT_NAME/${PROJECT_NAME}/" /etc/php/${PHP_VER}/fpm/php.ini
 RUN sed -i "s/ENV_PROJECT_NAME/${PROJECT_NAME}/" /etc/php/${PHP_VER}/cli/php.ini
 
 
