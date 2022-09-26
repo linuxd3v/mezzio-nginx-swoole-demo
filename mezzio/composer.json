@@ -23,6 +23,8 @@
         "forum": "https://discourse.laminas.dev"
     },
     "config": {
+        "classmap-authoritative": true,
+        "optimize-autoloader": true,
         "sort-packages": true,
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
