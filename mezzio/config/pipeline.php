@@ -23,7 +23,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // The error handler should be the first (most outer) middleware to catch
     // all Exceptions.
     $app->pipe(ErrorHandler::class);
-    $app->pipe(ServerUrlMiddleware::class);
+    //$app->pipe(ServerUrlMiddleware::class);
 
     // Pipe more middleware here that you want to execute on every request:
     // - bootstrapping
@@ -58,7 +58,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->pipe(MethodNotAllowedMiddleware::class);
 
     // Seed the UrlHelper with the routing results:
-    $app->pipe(UrlHelperMiddleware::class);
+    //$app->pipe(UrlHelperMiddleware::class);
 
     // Add more middleware here that needs to introspect the routing results; this
     // might include:
