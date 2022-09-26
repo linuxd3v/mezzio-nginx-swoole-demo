@@ -30,6 +30,12 @@ services:
       - ${FS_DIR}:/appdata
     environment:
       TZ: ${TZ}
+    #see if u need any of these, run ulimit -Sn, ulimit -Hn, ulimit -u in containers
+    #ulimits:
+    #  nproc: 65535
+    #  nofile:
+    #    soft: 65000
+    #    hard: 85000
   
   nginx:
     build:
@@ -62,3 +68,9 @@ services:
       TZ: ${TZ}
     ports:
       - ${HOST_PORT_HTTP}:${CNT_PORT_HTTP}
+    #see if u need any of these, run ulimit -Sn, ulimit -Hn, ulimit -u in containers
+    #ulimits:
+    #  nproc: 65535
+    #  nofile:
+    #    soft: 65000
+    #    hard: 85000
