@@ -15,7 +15,7 @@ return [
             'process-name'   => 'somalia',
             'host'           => '0.0.0.0',
             //'port'           => 9601,
-            'mode'           => SWOOLE_PROCESS,
+            //'mode'           => SWOOLE_PROCESS,
             'options'        => [
                 //Enable swoole awesomeness
                 'task_enable_coroutine' => true,
