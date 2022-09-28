@@ -15,23 +15,31 @@ return [
             'process-name'   => 'somalia',
             'host'           => '0.0.0.0',
             //'port'           => 9601,
-            //'mode'           => SWOOLE_PROCESS,
+            'mode'           => SWOOLE_PROCESS,
             'options'        => [
                 //Enable swoole awesomeness
                 'task_enable_coroutine' => true,
                 
                 //Make sure we set some max on conection number
-                'max_conn' => 1024,
+                //The default value of max_conn is ulimit -n - which is probably good,
+                //check your system ulimit -n before changing this
+                //'max_conn' => 8096000,
+
+                //Set the CPU affinity for reactor and worker threads/processes. 
+                //This option is disabled by default and is for hardware which runs multi-core CPUs.
+                'open_cpu_affinity' => true,
 
                 // Enable task workers.
                 //'task_worker_num' => 3,
                 
-                // Change number of workers 
-                //'worker_num' => 6,
+                // Change number of workers - depends on your usecase
+                // https://openswoole.com/docs/modules/swoole-server/configuration#worker_num
+                'worker_num' => swoole_cpu_num(),
 
                 //Safety feature to avoid memory leaks.
                 //A worker process is restarted to avoid memory leak when receiving max_request + rand(0, max_request_grace) requests.
-                'max_request' => 6000,
+                //he default value of max_request is 0 which means there is no limit of the max request. 
+                //'max_request' => 1000000,
 
                 //Increase to avoid this error:
                 //WARNING	Worker_reactor_try_to_exit() (ERRNO 9012): worker exit timeout, forced termination
